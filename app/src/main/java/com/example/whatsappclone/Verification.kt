@@ -19,6 +19,7 @@ class Verification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification)
+        supportActionBar?.hide();
 
         val verify = findViewById<Button>(R.id.verifybtn)
         val otp = findViewById<EditText>(R.id.otp)

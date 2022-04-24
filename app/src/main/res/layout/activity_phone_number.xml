@@ -4,44 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".PhoneNumber">
-
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
-        android:layout_width="108dp"
-        android:layout_height="45dp"
-        app:ccp_showFullName="false"
-        app:ccp_showNameCode="false"
-        app:ccp_showPhoneCode="true"
-        app:layout_constraintBottom_toBottomOf="@+id/number"
-        app:layout_constraintEnd_toStartOf="@+id/number"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/number" />
 
     <EditText
         android:id="@+id/number"
-        android:layout_width="264dp"
-        android:layout_height="47dp"
+        android:layout_width="305dp"
+        android:layout_height="45dp"
+        android:backgroundTint="#3FEA46"
         android:ems="10"
-        android:hint="Enter your  phoneNumber"
+        android:hint="Phone Number "
         android:inputType="phone"
+        android:textColor="#020202"
+        android:textColorHint="#514A4A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406"
+        app:layout_constraintVertical_bias="0.532"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/cbtn"
-        android:layout_width="171dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:text="continue"
+        android:layout_width="138dp"
+
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#21B351"
+        android:text="next"
         app:layout_constraintEnd_toEndOf="@+id/number"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/number"
         app:layout_constraintTop_toBottomOf="@+id/number" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="239dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068"
+        app:srcCompat="@drawable/persona" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="255dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="Enter your phone number"
+        android:textColor="#118A15"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="WhatsAppClone will need to verify your phone number "
+        android:textColor="#221E1E"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
