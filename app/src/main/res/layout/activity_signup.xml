@@ -23,6 +23,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="380dp"
+        android:alpha="0.6"
 
         android:layout_height="445dp"
 
@@ -60,7 +61,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.039" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/continuebtn"
                 android:layout_width="340dp"
                 android:layout_height="wrap_content"
@@ -180,7 +181,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFF7F7"
+        android:background="#FFFFFF"
         android:fontFamily="@font/alata"
         android:text="Sign Up"
         android:textColor="#040303"
