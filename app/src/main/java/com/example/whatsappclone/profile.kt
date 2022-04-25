@@ -18,7 +18,7 @@ class profile : AppCompatActivity() {
         signout.setOnClickListener {
 
             mAuth!!.signOut();
-            val intent = Intent(this, PhoneNumber::class.java)
+            val intent = Intent(this, signup::class.java)
             startActivity(intent);
 
         }
