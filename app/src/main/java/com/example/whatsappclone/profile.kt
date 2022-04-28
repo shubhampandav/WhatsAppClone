@@ -1,26 +1,34 @@
 package com.example.whatsappclone
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import com.google.firebase.auth.FirebaseAuth
+import android.provider.MediaStore
+import android.widget.ImageView
 
 class profile : AppCompatActivity() {
 
-    var mAuth: FirebaseAuth? = null;
+    val userimge: ImageView? = null;
+
+    private var image: Uri? = null
+    private  var REQUEST_CODE = 100;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        mAuth = FirebaseAuth.getInstance()
-        val signout = findViewById<Button>(R.id.button);
+        supportActionBar!!.hide(); // this is fro hide the action bar
+        val userimg = findViewById<ImageView>(R.id.userimg);
 
-        signout.setOnClickListener {
 
-            mAuth!!.signOut();
-            val intent = Intent(this, signup::class.java)
-            startActivity(intent);
-
-        }
     }
+
 }
+
+
+
+
+
+
+
+

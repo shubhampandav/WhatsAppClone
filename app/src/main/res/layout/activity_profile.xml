@@ -6,13 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".profile">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sign out"
+    <ImageView
+        android:id="@+id/userimg"
+        android:layout_width="183dp"
+        android:layout_height="190dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="274dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="Profile Info"
+        android:textColor="#201D1D"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/userimg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.582" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Please provide your name and profile photo "
+        android:textColor="#252424"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/userimg"
+        app:layout_constraintEnd_toEndOf="@+id/userimg"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/userimg" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="340dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="Type your name "
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/userimg"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/userimg"
+        app:layout_constraintTop_toBottomOf="@+id/userimg" />
+
+    <Button
+        android:id="@+id/nextbtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#26E156"
+        android:text="Next"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
