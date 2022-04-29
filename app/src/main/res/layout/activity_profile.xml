@@ -4,18 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".profile">
 
-    <ImageView
-        android:id="@+id/userimg"
+    <de.hdodenhof.circleimageview.CircleImageView
+
+        android:id="@+id/image"
         android:layout_width="183dp"
         android:layout_height="190dp"
+        android:src="@drawable/avatar"
+        app:civ_border_color="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33"
-        app:srcCompat="@drawable/avatar" />
+        app:layout_constraintVertical_bias="0.321" />
 
     <TextView
         android:id="@+id/textView9"
@@ -26,7 +31,7 @@
         android:text="Profile Info"
         android:textColor="#201D1D"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/userimg"
+        app:layout_constraintBottom_toTopOf="@+id/image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,23 +46,26 @@
         android:text="Please provide your name and profile photo "
         android:textColor="#252424"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/userimg"
-        app:layout_constraintEnd_toEndOf="@+id/userimg"
+        app:layout_constraintBottom_toTopOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="@+id/image"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/userimg" />
+        app:layout_constraintStart_toStartOf="@+id/image" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/name"
         android:layout_width="340dp"
         android:layout_height="47dp"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Type your name "
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/userimg"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="@+id/userimg"
-        app:layout_constraintTop_toBottomOf="@+id/userimg" />
+        android:textColorHighlight="#403737"
+        android:textColorHint="#353434"
+        android:textColorLink="#2E2A2A"
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <Button
         android:id="@+id/nextbtn"
@@ -68,8 +76,8 @@
         android:text="Next"
         android:textSize="17dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
