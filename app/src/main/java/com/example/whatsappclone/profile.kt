@@ -1,90 +1,105 @@
 package com.example.whatsappclone
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.whatsappclone.R
-import com.example.whatsappclone.model.userModel
-import com.google.common.collect.Iterables
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
+import de.hdodenhof.circleimageview.CircleImageView
+import java.net.URI
 import java.util.*
+
 
 class profile : AppCompatActivity() {
 
-    lateinit var image: ImageView;
-    lateinit var nextbnt: Button
-    lateinit var name: TextView;
-    private var pickImage = 100
-    private var imageUri: Uri? = null
-    lateinit var auth: FirebaseAuth;
-    lateinit var storage:FirebaseStorage;
+    private lateinit var auth:FirebaseAuth
+    private lateinit var database:FirebaseDatabase
+    private lateinit var storage: FirebaseStorage
+    private lateinit var imguri:Uri
+    private lateinit var userimg:ImageView
+    private lateinit var name:EditText
+    private lateinit var nextbtn:Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        image = findViewById(R.id.image);
-        auth = FirebaseAuth.getInstance();
-        nextbnt = findViewById(R.id.nextbtn);
+
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        storage = FirebaseStorage.getInstance()
+        userimg = findViewById(R.id.userimg);
+        nextbtn = findViewById(R.id.nextBtn);
         name = findViewById(R.id.name);
-        storage = FirebaseStorage.getInstance();
 
-        supportActionBar?.hide() // this is for hide the action bar
-        image.setOnClickListener {
-            val gallery =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI).also {
-                    startActivityForResult(it, pickImage)
-                }
-
+        userimg.setOnClickListener {
+            val intent = Intent();
+            intent.type = "image/*"
+            startActivityForResult(intent,101)
         }
-        nextbnt.setOnClickListener {
-            if (name.text.toString().isEmpty()) {
-                Toast.makeText(this, "Enter your name", Toast.LENGTH_SHORT).show()
-            } else if (image == null) {
-                Toast.makeText(this, "select profile picture ", Toast.LENGTH_SHORT).show()
-            } else {
-                uploadData();
-            }
+        nextbtn.setOnClickListener {
 
+            if (name.text.isEmpty()){
+                Toast.makeText(this, "Enter your name ", Toast.LENGTH_SHORT).show()
+                
+            }else if(userimg == null){
+                Toast.makeText(this, "select image", Toast.LENGTH_SHORT).show()
+            }else uploadData()
         }
+
+
 
     }
 
     private fun uploadData() {
-        val reference = storage.reference.child("profile").child(Date().time.toString())
-        imageUri?.let {
-            reference.putFile(it).addOnCompleteListener() {
-                if(it.isSuccessful){
-                  reference.downloadUrl.addOnCompleteListener {
-                      uploadInfo(it.toString())
-                  }
+        val ref = storage.reference.child("profile")
+            .child(Date().time.toString())
+        ref.putFile(imguri).addOnCompleteListener{
+            if (it.isSuccessful){
+                ref.downloadUrl.addOnSuccessListener { task ->
+                    uploadInfo(task.toString())
                 }
             }
         }
-
     }
 
-    private fun uploadInfo(imageUrl: String) {
+    private fun uploadInfo(imgurl: String) {
 
+        val user =User(auth.uid.toString(), name.text.toString(), imgurl)
+        database.reference.child("users")
+            .child(auth.uid.toString())
+            .setValue(user)
+            .addOnSuccessListener {
+                startActivity(Intent(this,MainActivity::class.java))
+                    finish()
+            }
 
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            image.setImageURI(imageUri)
-
+        if (data != null){
+            if (data.data != null){
+                imguri = data.data!!
+                userimg.setImageURI(imguri)
+            }
         }
     }
+
 }
-
-
-
