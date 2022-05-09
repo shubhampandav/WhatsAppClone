@@ -1,39 +1,37 @@
 package com.example.whatsappclone
 
-import android.app.Activity
+
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
+
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.Task
+
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
+
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
+
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
-import de.hdodenhof.circleimageview.CircleImageView
 import java.net.URI
+import java.text.SimpleDateFormat
+
 import java.util.*
 
 
 class profile : AppCompatActivity() {
 
-    private lateinit var auth:FirebaseAuth
-    private lateinit var database:FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
     private lateinit var storage: FirebaseStorage
-    private lateinit var imguri:Uri
-    private lateinit var userimg:ImageView
-    private lateinit var name:EditText
-    private lateinit var nextbtn:Button
+    private lateinit var imageuri: Uri
+    private lateinit var userimg: ImageView
+    private lateinit var name: EditText
+    private lateinit var nextbtn: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,57 +46,58 @@ class profile : AppCompatActivity() {
         name = findViewById(R.id.name);
 
         userimg.setOnClickListener {
+            // this code for select the image from gallery
             val intent = Intent();
             intent.type = "image/*"
-            startActivityForResult(intent,101)
+            intent.action = Intent.ACTION_GET_CONTENT
+
+            startActivityForResult(intent, 101)
         }
         nextbtn.setOnClickListener {
 
-            if (name.text.isEmpty()){
+            if (name.text.isEmpty()) {
                 Toast.makeText(this, "Enter your name ", Toast.LENGTH_SHORT).show()
-                
-            }else if(userimg == null){
-                Toast.makeText(this, "select image", Toast.LENGTH_SHORT).show()
-            }else uploadData()
-        }
 
+            } else if (userimg == null) {
+                Toast.makeText(this, "select image", Toast.LENGTH_SHORT).show()
+            } else uploadData()
+        }
 
 
     }
 
     private fun uploadData() {
-        val ref = storage.reference.child("profile")
-            .child(Date().time.toString())
-        ref.putFile(imguri).addOnCompleteListener{
-            if (it.isSuccessful){
-                ref.downloadUrl.addOnSuccessListener { task ->
-                    uploadInfo(task.toString())
-                }
-            }
-        }
-    }
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Uploading File")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
 
-    private fun uploadInfo(imgurl: String) {
-
-        val user =User(auth.uid.toString(), name.text.toString(), imgurl)
-        database.reference.child("users")
-            .child(auth.uid.toString())
-            .setValue(user)
+        val formatter = SimpleDateFormat("yyyy_mmm_dd_hh_mm_ss", Locale.getDefault())
+        val now = Date();
+        val filename = formatter.format(now);
+        val storageReference = FirebaseStorage.getInstance().getReference("Images/$filename")
+        storageReference.putFile(imageuri)
             .addOnSuccessListener {
-                startActivity(Intent(this,MainActivity::class.java))
-                    finish()
+                userimg.setImageURI(null)
+                Toast.makeText(this, "successfully uploaded", Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(this, "upload failed", Toast.LENGTH_SHORT).show()
+
             }
 
 
     }
 
+
+    // Here we override the method which called when user select the images from gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null){
-            if (data.data != null){
-                imguri = data.data!!
-                userimg.setImageURI(imguri)
-            }
+        if (requestCode == 101 && resultCode == RESULT_OK) {
+            imageuri = data?.data!!
+            userimg.setImageURI(imageuri)
+
         }
     }
 

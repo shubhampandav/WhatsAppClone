@@ -3,10 +3,10 @@ package com.example.whatsappclone
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
@@ -15,7 +15,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
-import com.hbb20.CountryCodePicker
+
 import java.util.concurrent.TimeUnit
 
 
@@ -32,6 +32,7 @@ class PhoneNumber : AppCompatActivity() {
 
         val cbtn = findViewById<Button>(R.id.cbtn);
         val number = findViewById<EditText>(R.id.number);
+
 
         mAuth = FirebaseAuth.getInstance() // initialize firebaseAuh
         progressDialog = ProgressDialog(this)
