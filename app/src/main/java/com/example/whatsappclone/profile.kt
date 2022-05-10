@@ -72,15 +72,16 @@ class profile : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-        val formatter = SimpleDateFormat("yyyy_mmm_dd_hh_mm_ss", Locale.getDefault())
-        val now = Date();
-        val filename = formatter.format(now);
-        val storageReference = FirebaseStorage.getInstance().getReference("Images/$filename")
+//        val formatter = SimpleDateFormat("yyyy_mmm_dd_hh_mm_ss", Locale.getDefault())
+//        val now = Date();
+//        val filename = formatter.format(now);
+        val storageReference = FirebaseStorage.getInstance().getReference("Images/${auth.uid.toString()}")
         storageReference.putFile(imageuri)
             .addOnSuccessListener {
                 userimg.setImageURI(null)
                 Toast.makeText(this, "successfully uploaded", Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
+                startActivity(Intent(this, MainActivity::class.java)); // this is for next activity
             }.addOnFailureListener {
                 if (progressDialog.isShowing) progressDialog.dismiss()
                 Toast.makeText(this, "upload failed", Toast.LENGTH_SHORT).show()
